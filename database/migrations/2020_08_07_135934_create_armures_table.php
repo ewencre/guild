@@ -14,7 +14,8 @@ class CreateArmuresTable extends Migration
     public function up()
     {
         Schema::create('armures', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->string('nom');            
             $table->timestamps();
         });
     }

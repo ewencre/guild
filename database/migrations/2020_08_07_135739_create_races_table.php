@@ -14,7 +14,8 @@ class CreateRacesTable extends Migration
     public function up()
     {
         Schema::create('races', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->string('nom');
             $table->timestamps();
         });
     }
