@@ -57,6 +57,19 @@
             </div>
         </div>
         
+        <!-- specialisation Personnage -->
+        <div class="form-group">
+            <label for="personnage" class="col-sm-3 control-label">Spécialisation</label>
+
+            <div class="col-sm-6">
+                <select name="specialisation_id">
+                    @foreach ($specialisations as $specialisation)
+                    <option value="{{ $specialisation->id }}" @if ($specialisation->id == $personnage->specialisation->id) selected @endif>{{ $specialisation->nom }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        
         <!-- Armure Personnage -->
         <div class="form-group">
             <label for="personnage" class="col-sm-3 control-label">Armure</label>

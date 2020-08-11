@@ -21,6 +21,7 @@ class CreatePersonnagesTable extends Migration
             $table->integer('armure_id')->unsigned();
             $table->string('proprietaire');
             $table->integer('pdv');
+            $table->integer('specialisation_id')->unsigned();
             $table->timestamps();
         });
         
@@ -28,6 +29,7 @@ class CreatePersonnagesTable extends Migration
             $table->foreign('race_id')->references('id')->on('races');
             $table->foreign('classe_id')->references('id')->on('classes');
             $table->foreign('armure_id')->references('id')->on('armures');
+            $table->foreign('specialisation_id')->references('id')->on('specialisations');
         });
     }
 

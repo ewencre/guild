@@ -37,7 +37,7 @@ CREATE TABLE `armures` (
 
 LOCK TABLES `armures` WRITE;
 /*!40000 ALTER TABLE `armures` DISABLE KEYS */;
-INSERT INTO `armures` VALUES (1,'tissu',NULL,NULL),(2,'cuir',NULL,NULL),(3,'métal',NULL,NULL);
+INSERT INTO `armures` VALUES (1,'Tissu',NULL,NULL),(2,'Cuir',NULL,NULL),(3,'Métal',NULL,NULL);
 /*!40000 ALTER TABLE `armures` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -63,7 +63,7 @@ CREATE TABLE `classes` (
 
 LOCK TABLES `classes` WRITE;
 /*!40000 ALTER TABLE `classes` DISABLE KEYS */;
-INSERT INTO `classes` VALUES (1,'guerrier',NULL,NULL),(2,'mage',NULL,NULL),(3,'prêtre',NULL,NULL),(4,'chasseur',NULL,NULL);
+INSERT INTO `classes` VALUES (1,'Guerrier',NULL,NULL),(2,'Mage',NULL,NULL),(3,'Prêtre',NULL,NULL),(4,'Chasseur',NULL,NULL);
 /*!40000 ALTER TABLE `classes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -106,7 +106,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -115,7 +115,7 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (1,'2014_10_12_000000_create_users_table',1),(2,'2014_10_12_100000_create_password_resets_table',1),(3,'2019_08_19_000000_create_failed_jobs_table',1),(4,'2020_08_07_135739_create_races_table',1),(5,'2020_08_07_135934_create_armures_table',1),(6,'2020_08_07_140044_create_specialisations_table',1),(7,'2020_08_07_140156_create_classes_table',1),(8,'2020_08_07_141228_create_personnages_table',1);
+INSERT INTO `migrations` VALUES (9,'2014_10_12_000000_create_users_table',1),(10,'2014_10_12_100000_create_password_resets_table',1),(11,'2019_08_19_000000_create_failed_jobs_table',1),(12,'2020_08_07_135739_create_races_table',1),(13,'2020_08_07_135934_create_armures_table',1),(14,'2020_08_07_140156_create_classes_table',1),(15,'2020_08_07_140250_create_specialisations_table',1),(16,'2020_08_07_141228_create_personnages_table',1);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -153,21 +153,24 @@ DROP TABLE IF EXISTS `personnages`;
 CREATE TABLE `personnages` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `pseudo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `race_id` int(10) unsigned NOT NULL DEFAULT '1',
-  `classe_id` int(10) unsigned NOT NULL DEFAULT '1',
-  `armure_id` int(10) unsigned NOT NULL DEFAULT '1',
+  `race_id` int(10) unsigned NOT NULL,
+  `classe_id` int(10) unsigned NOT NULL,
+  `armure_id` int(10) unsigned NOT NULL,
   `proprietaire` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pdv` int(11) NOT NULL,
+  `specialisation_id` int(10) unsigned NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `pdv` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `personnages_race_id_foreign` (`race_id`),
   KEY `personnages_classe_id_foreign` (`classe_id`),
   KEY `personnages_armure_id_foreign` (`armure_id`),
+  KEY `personnages_specialisation_id_foreign` (`specialisation_id`),
   CONSTRAINT `personnages_armure_id_foreign` FOREIGN KEY (`armure_id`) REFERENCES `armures` (`id`),
   CONSTRAINT `personnages_classe_id_foreign` FOREIGN KEY (`classe_id`) REFERENCES `classes` (`id`),
-  CONSTRAINT `personnages_race_id_foreign` FOREIGN KEY (`race_id`) REFERENCES `races` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  CONSTRAINT `personnages_race_id_foreign` FOREIGN KEY (`race_id`) REFERENCES `races` (`id`),
+  CONSTRAINT `personnages_specialisation_id_foreign` FOREIGN KEY (`specialisation_id`) REFERENCES `specialisations` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -176,7 +179,7 @@ CREATE TABLE `personnages` (
 
 LOCK TABLES `personnages` WRITE;
 /*!40000 ALTER TABLE `personnages` DISABLE KEYS */;
-INSERT INTO `personnages` VALUES (3,'xXlemeilleurdu35760Xx',2,1,1,'timothé','2020-08-10 11:42:38','2020-08-11 08:25:03',200),(8,'fa',2,3,2,'fa','2020-08-10 11:51:44','2020-08-11 08:26:03',1),(9,'Lepersonnage',4,3,3,'paul','2020-08-11 05:55:49','2020-08-11 05:55:49',NULL),(10,'eloalo',1,1,1,'jean','2020-08-11 07:25:04','2020-08-11 07:25:04',NULL),(13,'lemage?',2,2,1,'pierre','2020-08-11 07:28:38','2020-08-11 08:00:01',NULL),(14,'lecdhasseur',1,4,1,'pierre','2020-08-11 07:29:55','2020-08-11 08:00:07',NULL),(15,'ef',3,3,2,'sdfd','2020-08-11 07:33:09','2020-08-11 07:33:09',NULL);
+INSERT INTO `personnages` VALUES (1,'LETEMERAIRE',2,2,1,'Ewen',40,11,'2020-08-11 12:02:44','2020-08-11 12:07:11'),(2,'Tominator',2,4,3,'Tom',150,12,'2020-08-11 12:23:54','2020-08-11 12:23:54');
 /*!40000 ALTER TABLE `personnages` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -202,7 +205,7 @@ CREATE TABLE `races` (
 
 LOCK TABLES `races` WRITE;
 /*!40000 ALTER TABLE `races` DISABLE KEYS */;
-INSERT INTO `races` VALUES (1,'humain',NULL,NULL),(2,'elfe',NULL,NULL),(3,'nain',NULL,NULL),(4,'orc',NULL,NULL);
+INSERT INTO `races` VALUES (1,'Humain',NULL,NULL),(2,'Elfe',NULL,NULL),(3,'Nain',NULL,NULL),(4,'Orc',NULL,NULL);
 /*!40000 ALTER TABLE `races` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -216,12 +219,12 @@ DROP TABLE IF EXISTS `specialisations`;
 CREATE TABLE `specialisations` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nom` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `classe_id` int(10) unsigned NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `classe_id` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `classe_id` (`classe_id`),
-  CONSTRAINT `specialisations_ibfk_1` FOREIGN KEY (`classe_id`) REFERENCES `classes` (`id`)
+  KEY `specialisations_classe_id_foreign` (`classe_id`),
+  CONSTRAINT `specialisations_classe_id_foreign` FOREIGN KEY (`classe_id`) REFERENCES `classes` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -231,7 +234,7 @@ CREATE TABLE `specialisations` (
 
 LOCK TABLES `specialisations` WRITE;
 /*!40000 ALTER TABLE `specialisations` DISABLE KEYS */;
-INSERT INTO `specialisations` VALUES (1,'arme',NULL,NULL,1),(2,'fureur',NULL,NULL,1),(3,'protection',NULL,NULL,1),(4,'givre',NULL,NULL,2),(5,'feu',NULL,NULL,2),(6,'arcane',NULL,NULL,2),(7,'sacré',NULL,NULL,3),(8,'discipline',NULL,NULL,3),(9,'ombre',NULL,NULL,3),(10,'précision',NULL,NULL,4),(11,'maîtrise des bêtes',NULL,NULL,4),(12,'survie',NULL,NULL,4);
+INSERT INTO `specialisations` VALUES (1,'Arme',1,NULL,NULL),(2,'Fureur',1,NULL,NULL),(3,'Protection',1,NULL,NULL),(4,'Givre',2,NULL,NULL),(5,'Feu',2,NULL,NULL),(6,'Arcane',2,NULL,NULL),(7,'Sacré',3,NULL,NULL),(8,'Discipline',3,NULL,NULL),(9,'Ombre',3,NULL,NULL),(10,'Précision',4,NULL,NULL),(11,'Maîtrise des Bêtes',4,NULL,NULL),(12,'Survie',4,NULL,NULL);
 /*!40000 ALTER TABLE `specialisations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -274,4 +277,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-08-11 14:44:15
+-- Dump completed on 2020-08-11 16:44:55

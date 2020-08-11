@@ -24,4 +24,9 @@ class Personnage extends Model
     {
         return $this->belongsTo('App\Race');
     }
+    
+    public function specialisation()
+    {
+        return $this->belongsTo('App\Specialisation');
+    }
 }

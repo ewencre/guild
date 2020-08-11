@@ -6,6 +6,7 @@ use App\Personnage;
 use App\Race;
 use App\Classe;
 use App\Armure;
+use App\Specialisation;
 use Illuminate\Http\Request;
 
 class PersonnageController extends Controller
@@ -19,9 +20,6 @@ class PersonnageController extends Controller
     {
         return view('personnages.index', [
             'personnages' => Personnage::orderBy('created_at', 'asc')->get(),
-            'races' => Race::all(),
-            'classes' => Classe::all(),
-            'armures' => Armure::all(),
         ]);
     }
 
@@ -36,6 +34,7 @@ class PersonnageController extends Controller
             'races' => Race::all(),
             'classes' => Classe::all(),
             'armures' => Armure::all(),
+            'specialisations' => Specialisation::all(),
         ]);
     }
 
@@ -60,6 +59,7 @@ class PersonnageController extends Controller
         $personnage->classe_id = $request->classe_id;
         $personnage->armure_id = $request->armure_id;
         $personnage->proprietaire = $request->proprietaire;
+        $personnage->specialisation_id = $request->specialisation_id;
         $personnage->save();
 
         return redirect()->route('personnages.index')
@@ -90,6 +90,7 @@ class PersonnageController extends Controller
             'races' => Race::all(),
             'classes' => Classe::all(),
             'armures' => Armure::all(),
+            'specialisations' => Specialisation::all(),
         ]);
     }
 
@@ -114,6 +115,7 @@ class PersonnageController extends Controller
         $personnage->classe_id = $request->classe_id;
         $personnage->armure_id = $request->armure_id;
         $personnage->proprietaire = $request->proprietaire;
+        $personnage->specialisation_id = $request->specialisation_id;
         $personnage->save();
 
         return redirect()->route('personnages.index')

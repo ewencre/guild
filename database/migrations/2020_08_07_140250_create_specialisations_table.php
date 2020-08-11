@@ -16,7 +16,12 @@ class CreateSpecialisationsTable extends Migration
         Schema::create('specialisations', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nom');
+            $table->integer('classe_id')->unsigned();
             $table->timestamps();
+        });
+        
+        Schema::table('specialisations', function($table) {
+            $table->foreign('classe_id')->references('id')->on('classes');
         });
     }
 

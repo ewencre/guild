@@ -37,8 +37,8 @@
                     <th>Pseudo</th>
                     <th>Race</th>
                     <th>Points de vie</th>
-                    <th>Classe</th>
                     <th>Armure</th>
+                    <th>Détails</th>
                     <th>Propriétaire</th>
                     <th style="text-align:center">Actions</th>
                 </thead>
@@ -58,7 +58,7 @@
                     @endif
                     <tr>
                         <!-- Personnage Pseudo -->
-                        <td class="table-text">
+                        <td class="table-text" @if($personnage->proprietaire == 'Tom' || $personnage->proprietaire == 'tom') id="tom" @endif>
                             <div>{{ $personnage->pseudo }}</div>
                         </td>
                         <!-- Personnage Race -->
@@ -69,13 +69,13 @@
                         <td class="table-text" style="background-color:{{ $couleur }}">
                             <div>{{ $personnage->pdv }}</div>
                         </td>
-                        <!-- Personnage Classe -->
-                        <td class="table-text" style="background-color:{{ $couleur }}">
-                            <div>{{ $personnage->classe->nom }}</div>
-                        </td>
                         <!-- Personnage Armure -->
                         <td class="table-text" style="background-color:{{ $couleur }}">
                             <div>{{ $personnage->armure->nom }}</div>
+                        </td>
+                        <!-- Personnage Détails -->
+                        <td class="table-text" style="background-color:{{ $couleur }}">
+                            <div>Je suis un {{ $personnage->classe->nom }} avec la spécialisation {{ $personnage->specialisation->nom }}</div>
                         </td>
                         <!-- Personnage Propriétaire -->
                         <td class="table-text" style="background-color:{{ $couleur }}">
@@ -101,5 +101,45 @@
             </table>
         </div>
     </div>
+
+    <div class="row">
+        <div class="form-group">
+            <div class="col-sm-12">
+                <p>
+                    <span style="background-color:burlywood">&nbsp;&nbsp;&nbsp;&nbsp;</span> Guerrier
+                </p>
+                <p>
+                    <span style="background-color:cornflowerblue">&nbsp;&nbsp;&nbsp;&nbsp;</span> Mage
+                </p>
+                <p>
+                    <span style="background-color:white">&nbsp;&nbsp;&nbsp;&nbsp;</span> Prêtre
+                </p>
+                <p>
+                    <span style="background-color:lightgreen">&nbsp;&nbsp;&nbsp;&nbsp;</span> Chasseur
+                </p>
+            </div>
+        </div>
+    </div>
     @endif
+    <script>
+function getRandomColor() {
+    var letters = '012345'.split('');
+    var color = '#';        
+    color += letters[Math.round(Math.random() * 5)];
+    letters = '0123456789ABCDEF'.split('');
+    for (var i = 0; i < 5; i++) {
+        color += letters[Math.round(Math.random() * 15)];
+    }
+    return color;
+} 
+$(function() {
+    var div = $('#tom'); 
+    var chars = div.text().split('');
+    div.html('');     
+    for(var i=0; i<chars.length; i++) {
+        var span = $('<span>' + chars[i] + '</span>').css("color", getRandomColor());
+        div.append(span);
+    }
+});
+    </script>
     @endsection
