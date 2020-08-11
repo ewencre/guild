@@ -8,22 +8,19 @@ use App\Classe;
 use App\Armure;
 use Illuminate\Http\Request;
 
+Route::resource('personnages','PersonnageController');
 
-
-/*
-Route::get('/', function () {
-    return view('personnages');
-});
-
-Route::get('/personnages', 'PersonnageController@index');
-Route::post('/personnage', 'PersonnageController@store');
-Route::delete('/personnage/{personnage}', 'PersonnageController@destroy');
-*/
-
-
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('personnages', [
         'personnages' => Personnage::orderBy('created_at', 'asc')->get(),
+        'races' => Race::all(),
+        'classes' => Classe::all(),
+        'armures' => Armure::all(),
+    ]);
+});
+
+Route::get('/creation', function () {
+    return view('creation', [
         'races' => Race::all(),
         'classes' => Classe::all(),
         'armures' => Armure::all(),
@@ -37,7 +34,7 @@ Route::post('/personnage', function (Request $request) {
     ]);
 
     if ($validator->fails()) {
-        return redirect('/')
+        return redirect('/creation')
             ->withInput()
             ->withErrors($validator);
     }
@@ -57,4 +54,4 @@ Route::delete('/personnage/{id}', function ($id) {
     Personnage::findOrFail($id)->delete();
 
     return redirect('/');
-});
+});*/
