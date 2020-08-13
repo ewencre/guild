@@ -48,7 +48,7 @@
             <label for="personnage" class="col-sm-3 control-label">Classe</label>
 
             <div class="col-sm-6">
-                <select name="classe_id">
+                <select name="classe_id" id="classe">
                     @foreach ($classes as $classe)
                     <option value="{{ $classe->id }}">{{ $classe->nom }}</option>
                     @endforeach
@@ -61,10 +61,8 @@
             <label for="personnage" class="col-sm-3 control-label">Spécialisation</label>
 
             <div class="col-sm-6">
-                <select name="specialisation_id">
-                    @foreach ($specialisations as $specialisation)
-                    <option value="{{ $specialisation->id }}">{{ $specialisation->nom }}</option>
-                    @endforeach
+                <select name="specialisation_id" id="special">
+                    @foreach ($specialisations as $specialisation) @if ($specialisation->classe_id == 1) <option value='{{ $specialisation->id }}'>{{ $specialisation->nom }}</option> @endif @endforeach
                 </select>
             </div>
         </div>
@@ -104,4 +102,21 @@
         </div>
     </form>
 </div>
+<script>
+    $(document).ready(function() {
+$("#classe").change(function() {
+        var val = $(this).val();
+        if (val == "1") {
+            $("#special").html("@foreach ($specialisations as $specialisation) @if ($specialisation->classe_id == 1) <option value='{{ $specialisation->id }}'>{{ $specialisation->nom }}</option> @endif @endforeach");
+        } else if (val == "2") {
+            $("#special").html("@foreach ($specialisations as $specialisation) @if ($specialisation->classe_id == 2) <option value='{{ $specialisation->id }}'>{{ $specialisation->nom }}</option> @endif @endforeach");
+        } else if (val == "3") {
+            $("#special").html("@foreach ($specialisations as $specialisation) @if ($specialisation->classe_id == 3) <option value='{{ $specialisation->id }}'>{{ $specialisation->nom }}</option> @endif @endforeach");
+        }else if (val == "4") {
+            $("#special").html("@foreach ($specialisations as $specialisation) @if ($specialisation->classe_id == 4) <option value='{{ $specialisation->id }}'>{{ $specialisation->nom }}</option> @endif @endforeach");
+        }
+    });
+
+});
+    </script>
 @endsection

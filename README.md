@@ -63,9 +63,11 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 # guild
 
 CREATE DATABASE guild;
-CREATE USER 'guild'@localhost' IDENTIFIED BY 'guild';
-GRANT ALL ON guild TO 'guild'@'localhost';
+CREATE USER 'guild'@'localhost' IDENTIFIED BY 'guild';
+GRANT ALL ON guild.* TO 'guild'@'localhost';
 
 php artisan migrate;
 php artisan db:seed;
 php artisan serve;
+
+http://localhost:8000/personnages

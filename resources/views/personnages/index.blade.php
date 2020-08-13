@@ -58,7 +58,7 @@
                     @endif
                     <tr>
                         <!-- Personnage Pseudo -->
-                        <td class="table-text" @if($personnage->proprietaire == 'Tom' || $personnage->proprietaire == 'tom') id="tom" @endif>
+                        <td @if($personnage->proprietaire == 'Tom' OR $personnage->proprietaire == 'tom') class="table-text tom" @else class="table-text" @endif>
                             <div>{{ $personnage->pseudo }}</div>
                         </td>
                         <!-- Personnage Race -->
@@ -132,8 +132,8 @@ function getRandomColor() {
     }
     return color;
 } 
-$(function() {
-    var div = $('#tom'); 
+$(".tom").each(function() {
+    var div = $(this); 
     var chars = div.text().split('');
     div.html('');     
     for(var i=0; i<chars.length; i++) {

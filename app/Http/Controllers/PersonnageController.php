@@ -48,7 +48,7 @@ class PersonnageController extends Controller
     {
         $request->validate([
             'pseudo' => 'required|max:25',
-            'pdv' => 'required',
+            'pdv' => 'required|max:5',
             'proprietaire' => 'required|max:25',
         ]);
 
@@ -105,7 +105,7 @@ class PersonnageController extends Controller
     {
         $request->validate([
             'pseudo' => 'required|max:25',
-            'pdv' => 'required',
+            'pdv' => 'required|max:5',
             'proprietaire' => 'required|max:25',
         ]);
 
